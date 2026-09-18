@@ -4,7 +4,7 @@
 # Imported-By: Amlal
 
 echo "==> WELCOME TO NCC."
-echo "==> INSTALLING NCC..."
+echo "==> INSTALLING NCC FOR THIS SYSTEM..."
 
 if command -v dnf >/dev/null 2>&1; then
     sudo dnf groupinstall "Development Tools" -y
@@ -52,6 +52,6 @@ sudo cp pef-amd64-asm /usr/local/bin/
 sudo cp pef-amd64-necdrv /usr/local/bin/
 sudo cp ptx-necdrv /usr/local/bin/
 
-echo "==> WELCOME TO NCC"
+echo "==> WELCOME TO NCC BY NE.APP..."
 echo "==> HELP"
 echo "nectar <FILES>"
