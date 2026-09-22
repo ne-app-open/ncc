@@ -1,0 +1,3 @@
+[submodule "EXTERNAL_HEADERS/RSL"]
+	path = EXTERNAL_HEADERS/RSL
+	url = git@github.com:ne-app/RSL.git
