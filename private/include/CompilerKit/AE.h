@@ -9,11 +9,11 @@
 #include <CompilerKit/Detail/Config.h>
 #include <fstream>
 
-#define kAEIdentVersion (0x0123)
+#define kAEIdentVersion (0x0124)
 
 #define kAEMag0 'A'
 #define kAEMag1 'E'
-#define kAEMag2 'O'
+#define kAEMag2 'X'
 
 #define kAESymbolLen (256)
 #define kAEPad (8)
@@ -32,29 +32,29 @@ namespace CompilerKit {
 // @brief Advanced Executable Header
 // One thing to keep in mind.
 // This object format, is reloctable.
-typedef struct AEHeader final {
-  char     fMagic[kAEMagLen] = {};
+typedef struct alignas(8) AEHeader final {
+  CharT     fMagic[kAEMagLen] = {};
   UInt16   fVersion{kAEIdentVersion};
-  char     fArch{};
-  char     fSubArch{};
+  CharT     fArch{};
+  CharT     fSubArch{};
   SizeType fCount{};
-  char     fSize{};
+  CharT     fSize{};
   SizeType fStartCode{};
   SizeType fCodeSize{};
-  char     fPad[kAEPad] = {};
+  CharT     fPad[kAEPad] = {};
 } PACKED AEHeader, *AEHeaderPtr;
 
 // @brief Advanced Executable Record.
 // Could be data, code or bss.
 // fKind must be filled with PEF fields.
 
-typedef struct AERecordHeader final {
-  char     fName[kAESymbolLen];
+typedef struct alignas(8) AERecordHeader final {
+  CharT     fName[kAESymbolLen];
   SizeType fKind;
   SizeType fSize;
   SizeType fFlags;
   UIntPtr  fOffset;
-  char     fPad[kAEPad];
+  CharT     fPad[kAEPad];
 } PACKED AERecordHeader, *AERecordHeaderPtr;
 
 enum {
@@ -72,22 +72,22 @@ enum {
 
 namespace Operators {
 inline std::ofstream& operator<<(std::ofstream& fp, CompilerKit::AEHeader& container) {
-  fp.write((char*) &container, sizeof(CompilerKit::AEHeader));
+  fp.write((CharT*) &container, sizeof(CompilerKit::AEHeader));
   return fp;
 }
 
 inline std::ofstream& operator<<(std::ofstream& fp, CompilerKit::AERecordHeader& container) {
-  fp.write((char*) &container, sizeof(CompilerKit::AERecordHeader));
+  fp.write((CharT*) &container, sizeof(CompilerKit::AERecordHeader));
   return fp;
 }
 
 inline std::ifstream& operator>>(std::ifstream& fp, CompilerKit::AEHeader& container) {
-  fp.read((char*) &container, sizeof(CompilerKit::AEHeader));
+  fp.read((CharT*) &container, sizeof(CompilerKit::AEHeader));
   return fp;
 }
 
 inline std::ifstream& operator>>(std::ifstream& fp, CompilerKit::AERecordHeader& container) {
-  fp.read((char*) &container, sizeof(CompilerKit::AERecordHeader));
+  fp.read((CharT*) &container, sizeof(CompilerKit::AERecordHeader));
   return fp;
 }
 }  // namespace Operators
@@ -118,7 +118,7 @@ class AEReadableProtocol final {
    * @param sz it's size (1 = one AERecordHeader, 2 two AERecordHeader(s))
    * @return AERecordHeaderPtr
    */
-  AERecordHeaderPtr Read(char* raw, std::size_t sz) {
+  AERecordHeaderPtr Read(CharT* raw, std::size_t sz) {
     if (!raw) return nullptr;
     return this->Read_<AERecordHeader>(raw, sz * sizeof(AERecordHeader));
   }
@@ -133,7 +133,7 @@ class AEReadableProtocol final {
    * @return TypeClass* the returning class.
    */
   template <typename TypeClass>
-  TypeClass* Read_(char* raw, std::size_t sz) {
+  TypeClass* Read_(CharT* raw, std::size_t sz) {
     fFilePtr.read(raw, std::streamsize(sz));
     return reinterpret_cast<TypeClass*>(raw);
   }

@@ -40,6 +40,7 @@
 
 #define Int8 int8_t
 #define UInt8 uint8_t
+#define CharT char
 
 #include <signal.h>
 #include <stdint.h>
