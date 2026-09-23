@@ -12,7 +12,7 @@
 #include <CompilerKit/UUID.h>
 #include <CompilerKit/Utils/Compiler.h>
 
-/* Nectar Compiler Driver. */
+/* Nectar Compiler Driver for AMD64. */
 /* This is part of the CompilerKit. */
 /* (c) Amlal El Mahrouss 2024-2026 */
 
