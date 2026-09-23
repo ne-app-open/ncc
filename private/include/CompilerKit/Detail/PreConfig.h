@@ -40,7 +40,9 @@
 
 #define Int8 int8_t
 #define UInt8 uint8_t
+#define CharT char
 
+/// Use MinGW with POSIX symbols.
 #include <signal.h>
 #include <stdint.h>
 #include <time.h>
