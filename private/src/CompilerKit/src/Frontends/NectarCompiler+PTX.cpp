@@ -31,6 +31,8 @@
 static std::filesystem::path nectar_expand_home(const std::filesystem::path& input) {
   const std::string& raw = input.string();
 
+  MUST_PASS(raw.empty() != true);
+
   if (!raw.empty() && raw[0] == '~') {
     const char* home = std::getenv("HOME");
     if (!home) home = std::getenv("USERPROFILE");

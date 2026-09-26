@@ -42,6 +42,10 @@
 #define UInt8 uint8_t
 #define CharT char
 
+#ifndef _NCC_STD
+#define _NCC_STD ::std
+#endif
+
 /// Use MinGW with POSIX symbols.
 #include <signal.h>
 #include <stdint.h>
