@@ -202,7 +202,7 @@ static void nectar_process_function_parameters(const std::vector<CompilerKit::ST
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-/* \brief NCC compiler backend for the NeSystem NCC driver */
+/* \brief NCC compiler backend for the NeAnt NCC driver */
 class CompilerFrontendNectarAMD64 final NC_COMPILER_FRONTEND {
  public:
   explicit CompilerFrontendNectarAMD64()  = default;
@@ -1689,7 +1689,7 @@ NCC_MODULE(CompilerNectarAMD64) {
         std::cout << "NCC X64 FRONTEND:\n";
         std::cout << "====================================================\n";
         std::cout << "-fverbose: Enable Verbose output.\n";
-        std::cout << "-fuse-masm: Use the NeSystem Assembler syntax.\n";
+        std::cout << "-fuse-masm: Use the NeAnt Assembler syntax.\n";
         std::cout << "-fprint-dialect: Prints the current Nectar dialect.\n";
         std::cout << "-fuse-nasm: Use the Netwide Assembler syntax.\n";
         std::cout << "====================================================\n";

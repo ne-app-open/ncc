@@ -204,7 +204,7 @@ static void nectar_process_function_parameters(const std::vector<CompilerKit::ST
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-/* \brief NCC compiler backend for the NeSystem NCC driver */
+/* \brief NCC compiler backend for the NeAnt NCC driver */
 class CompilerFrontendNectarPTX final NC_COMPILER_FRONTEND {
  public:
   explicit CompilerFrontendNectarPTX()  = default;
