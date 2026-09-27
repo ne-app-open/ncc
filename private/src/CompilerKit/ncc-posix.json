@@ -11,7 +11,7 @@
     "src/*.cpp",
     "src/*/*.cpp"
   ],
-  "output_name": "CompilerKit.dll",
+  "output_name": "/usr/lib/libCompilerKit.so",
   "compiler_flags": [
     "-fPIC",
     "-shared"
@@ -19,8 +19,9 @@
   "cpp_macros": [
     "__NCC__=202602",
     "NC_USE_STRUCTS=1",
-    "NC_WINDOWS=1",
+    "NC_POSIX=1",
     "kDistReleaseBranch=$(git rev-parse --abbrev-ref HEAD)-$(uuidgen)"
   ],
-  "description": "CompilerKit for Windows NT. The Compiler Kit is the framework behind Nectar."
+  "description": "NCC for POSIX. The Compiler Kit is the framework behind Nectar."
 }
+

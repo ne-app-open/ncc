@@ -1,0 +1,32 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026, Amlal El Mahrouss (amlal@nekernel.org)
+// Licensed under the Apache License, Version 2.0 (See accompanying
+// file LICENSE or copy at http://www.apache.org/licenses/LICENSE-2.0)
+// Official repository: https://github.com/ne-app-eu/ncc
+
+#ifndef NCC_GL_NCC_NHH
+#define NCC_GL_NCC_NHH
+
+#ifndef _NCC
+#define _NCC 202609
+#endif
+
+/// AMLALE: Feel free to undef any of these if cross-compiling.
+
+#ifndef _NCC_HAS_IO
+#define _NCC_HAS_IO 1
+#endif
+
+#ifndef _NCC_HAS_PSTD
+#define _NCC_HAS_PSTD 1
+#endif
+
+#ifndef _NCC_HAS_MATH
+#define _NCC_HAS_MATH 1
+#endif
+
+#ifndef _NCC_HAS_ITERATOR
+#define _NCC_HAS_ITERATOR 1
+#endif
+
+#endif

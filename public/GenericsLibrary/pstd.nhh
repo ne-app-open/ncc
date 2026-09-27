@@ -6,7 +6,9 @@
 
 #pragma once
 
-#define PALLOC_INVALID 0
+#ifndef _NCC_PALLOC_INVALID
+#define _NCC_PALLOC_INVALID 0
+#endif
 
 extern __nrt_palloc;
 extern __nrt_pfree;

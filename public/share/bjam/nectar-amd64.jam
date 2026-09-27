@@ -20,4 +20,3 @@ action compile-nectar-sources-amd64
 {
   $(.NCC_AMD64) $(.NCC_AMD64_FLAGS) $(.NCC_AMD64_SOURCES)
 }
-

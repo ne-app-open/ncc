@@ -1,28 +1,31 @@
 {
-  "compiler_path": "g++",
+  "compiler_path": "clang++",
   "compiler_std": "c++20",
   "headers_path": [
     "../../include/CompilerKit",
     "../../include/",
     "../../include/CompilerKit/src/",
     "../../include/CompilerKit/src/impl",
-    "/usr/local/include/",
     "/opt/homebrew/Cellar/boost/1.90.0/include"
   ],
   "sources_path": [
     "src/*.cpp",
     "src/*/*.cpp"
   ],
-  "output_name": "/usr/local/lib/libCompilerKit.dylib",
+  "output_name": "/usr/lib/libCompilerKit.san.so",
   "compiler_flags": [
     "-fPIC",
-    "-shared"
+    "-shared",
+    "-fstack-protector-all",
+    "-fno-omit-frame-pointer",
+    "-g",
+    "-fsanitize=address",
+    "-fsanitize=undefined"
   ],
   "cpp_macros": [
     "__NCC__=202505",
     "NC_USE_STRUCTS=1",
-    "NC_USE_MACHO_LINKER=1",
     "kDistReleaseBranch=$(git rev-parse --abbrev-ref HEAD)-$(uuidgen)"
   ],
-  "description": "CompilerKit for OS X. The Compiler Kit is the framework behind Nectar."
+  "description": "NCC for POSIX, with Asan/Ubsan. The Compiler Kit is the framework behind Nectar."
 }

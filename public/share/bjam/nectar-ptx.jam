@@ -20,4 +20,3 @@ action compile-nectar-sources-ptx
 {
   $(.NCC_PTX) $(.NCC_PTX_FLAGS) $(.NCC_PTX_SOURCES)
 }
-
