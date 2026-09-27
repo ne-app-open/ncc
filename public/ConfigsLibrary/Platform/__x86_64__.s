@@ -18,7 +18,7 @@ __nrt_palloc_:
     push rcx
     call __nrt_p_new_region
     pop rcx
-    mov rdx, rax
+    mov rax, rdx
     pop rax
     ret
 
@@ -27,7 +27,7 @@ __nrt_pfree_:
     push rcx
     call __nrt_p_free_region
     pop rcx
-    mov rdx, rax
+    mov rax, rdx
     pop rax
     ret
 
@@ -36,7 +36,7 @@ __nrt_pthread_new_:
     push rcx
     call __nrt_p_new_thread
     pop rcx
-    mov rdx, rax
+    mov rax, rdx
     pop rax
     ret
 
@@ -45,6 +45,6 @@ __nrt_pthread_kill_:
     push rcx
     call __nrt_p_kill_thread
     pop rcx
-    mov rdx, rax
+    mov rax, rdx
     pop rax
     ret
