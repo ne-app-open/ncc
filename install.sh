@@ -39,7 +39,7 @@ chmod +x public/share/bin/nectar
 sudo cp public/share/bin/nectar /usr/local/bin/
 
 cd private/src/CompilerKit
-sudo nebuild ck-posix.json
+sudo nebuild ncc-posix.json
 cd ..
 cd DebuggerKit
 sudo nebuild dk-nk-posix.json

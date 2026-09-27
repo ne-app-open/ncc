@@ -1,4 +1,4 @@
-# Specification of the NeSystem Assembler.
+# Specification of the NeAnt Assembler.
 
 ===================================
 
