@@ -38,7 +38,7 @@ tools/cxxdrv
 
 Examples/
 
-# NeSystem executable
+# NeAnt executable
 *.exec
 *.bin
 

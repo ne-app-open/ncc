@@ -31,6 +31,8 @@
 static std::filesystem::path nectar_expand_home(const std::filesystem::path& input) {
   const std::string& raw = input.string();
 
+  MUST_PASS(raw.empty() != true);
+
   if (!raw.empty() && raw[0] == '~') {
     const char* home = std::getenv("HOME");
     if (!home) home = std::getenv("USERPROFILE");
@@ -204,7 +206,7 @@ static void nectar_process_function_parameters(const std::vector<CompilerKit::ST
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-/* \brief NCC compiler backend for the NeSystem NCC driver */
+/* \brief NCC compiler backend for the NeAnt NCC driver */
 class CompilerFrontendNectarPTX final NC_COMPILER_FRONTEND {
  public:
   explicit CompilerFrontendNectarPTX()  = default;

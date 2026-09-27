@@ -1,4 +1,4 @@
-# Specification of NeSystem's PEF ABI.
+# Specification of NeAnt's PEF ABI.
 
 The PEF ABI has multiple versions depending on the ISA.
 

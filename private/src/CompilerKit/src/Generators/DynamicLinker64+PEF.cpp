@@ -22,7 +22,7 @@
 #define kLinkerPefNoSubCpu (0U)
 #define kLinkerPefDefaultOutput {"a" kPefExt}
 
-#define kLinkerVersionStr "Nectar 64-Bit Linker (NeSystem PEF)"
+#define kLinkerVersionStr "Nectar 64-Bit Linker (NeAnt PEF)"
 
 #define kLinkerDefaultOrigin kPefBaseOrigin
 
