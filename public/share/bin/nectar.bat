@@ -1,7 +1,16 @@
 @echo off
-cls
 
+cls
 echo ===================================
-echo NCC: Nectar Compiler Collection"
+echo NCC: Nectar Compiler Collection
 echo ===================================
-echo nectar: coming soon for Windows NT.
+
+if "%~1"=="" (
+    echo nectar: No argument supplied
+)
+
+for %%i in (%*) do (
+    echo nectar: translating:  %%i.nc.pp
+    cpp -P %%i.nc -o %%i.pp.nc
+    pef-amd64-necdrv -fuse-nasm %%i.pp.nc
+)
