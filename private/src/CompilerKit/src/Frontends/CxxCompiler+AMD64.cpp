@@ -172,30 +172,30 @@ static void cxx_pop_scope();
 // Name mangling
 static std::vector<CompilerKit::STLString> cxx_extract_function_args(
     const CompilerKit::STLString& text);
-static CompilerKit::STLString cxx_mangle_name(
-    const CompilerKit::STLString& identifier, const std::vector<CompilerKit::STLString>& args = {});
+static CompilerKit::STLString cxx_mangle_name(const CompilerKit::STLString&              identifier,
+                                              const std::vector<CompilerKit::STLString>& args = {});
 
 // Stack frame management
 static CompilerKit::STLString cxx_generate_prologue();
 static CompilerKit::STLString cxx_generate_epilogue();
 static Int32 cxx_allocate_stack_variable(const CompilerKit::STLString& var_name, Int32 size = 8,
-                                            bool is_constant = false);
+                                         bool is_constant = false);
 
 // Register allocation
 static CompilerKit::STLString cxx_allocate_register(const CompilerKit::STLString& var_name);
 static CompilerKit::STLString cxx_spill_lru_variable();
 static VariableInfo*          cxx_find_variable(const CompilerKit::STLString& var_name);
 static CompilerKit::STLString cxx_get_variable_ref(const CompilerKit::STLString& var_name,
-                                                      bool                          lookup = false);
+                                                   bool                          lookup = false);
 
 // Impl management
 static void                   cxx_add_impl_member(const CompilerKit::STLString& class_name,
-                                                     const CompilerKit::STLString& member_name, Int32 size);
+                                                  const CompilerKit::STLString& member_name, Int32 size);
 static Int32                  cxx_get_impl_size(const CompilerKit::STLString& class_name);
 static CompilerKit::STLString cxx_generate_constructor_call(
     const CompilerKit::STLString& class_name, const CompilerKit::STLString& obj_name);
-static CompilerKit::STLString cxx_generate_destructor_call(
-    const CompilerKit::STLString& class_name, const CompilerKit::STLString& obj_name);
+static CompilerKit::STLString cxx_generate_destructor_call(const CompilerKit::STLString& class_name,
+                                                           const CompilerKit::STLString& obj_name);
 
 // PEF calling convention
 static void cxx_process_function_parameters(const std::vector<CompilerKit::STLString>& args);
@@ -266,7 +266,7 @@ static std::vector<std::pair<CompilerKit::STLString, std::uintptr_t>> kOriginMap
 /////////////////////////////////////////////////////////////////////////////////////////
 
 static auto cxx_get_impl_member(const CompilerKit::STLString& class_name,
-                                   const CompilerKit::STLString& member_name) -> CompilerStructMap {
+                                const CompilerKit::STLString& member_name) -> CompilerStructMap {
   auto it =
       std::find_if(kContext.fStructMapVector.cbegin(), kContext.fStructMapVector.cend(),
                    [&class_name](const auto& sm) -> bool { return (sm.fName == class_name); });
@@ -432,7 +432,7 @@ CompilerKit::SyntaxLeafList::SyntaxLeaf CompilerFrontendCxxAMD64::Compile(
 
       accept_func: {
         CompilerKit::STLString symbol_name_fn;
-        size_t                 indexFnName    = 0;
+        size_t                 indexFnName = 0;
 
         // this one is for the type.
         for (const auto& ch : text) {
@@ -827,10 +827,9 @@ CompilerKit::SyntaxLeafList::SyntaxLeaf CompilerFrontendCxxAMD64::Compile(
           varName.erase(varName.find("\t"), 1);
         }
 
-        cxx_allocate_stack_variable(
-            varName, 8,
-            text.find("const ") != CompilerKit::STLString::npos ||
-                text.find("constexpr ") != CompilerKit::STLString::npos);
+        cxx_allocate_stack_variable(varName, 8,
+                                    text.find("const ") != CompilerKit::STLString::npos ||
+                                        text.find("constexpr ") != CompilerKit::STLString::npos);
 
         CompilerKit::STLString mangled;
 
@@ -869,8 +868,8 @@ CompilerKit::SyntaxLeafList::SyntaxLeaf CompilerFrontendCxxAMD64::Compile(
               if (valueOfVar.ends_with(")") &&
                       valueOfVar.find("->") != CompilerKit::STLString::npos ||
                   valueOfVar.find(".") != CompilerKit::STLString::npos)
-                syntax_tree.fUserValue += instr + cxx_get_variable_ref(varName) +
-                                          ", __thiscall " + mangled + valueOfVar + "\n";
+                syntax_tree.fUserValue += instr + cxx_get_variable_ref(varName) + ", __thiscall " +
+                                          mangled + valueOfVar + "\n";
               else
                 syntax_tree.fUserValue +=
                     instr + cxx_get_variable_ref(varName) + ", " + mangled + valueOfVar + "\n";
@@ -884,8 +883,7 @@ CompilerKit::SyntaxLeafList::SyntaxLeaf CompilerFrontendCxxAMD64::Compile(
 
         if (valueOfVar.ends_with("{}")) valueOfVar = "rax";  // impl init returns back to rax.
 
-        syntax_tree.fUserValue +=
-            instr + cxx_get_variable_ref(varName) + ", " + valueOfVar + "\n";
+        syntax_tree.fUserValue += instr + cxx_get_variable_ref(varName) + ", " + valueOfVar + "\n";
 
         break;
       }
@@ -1010,17 +1008,17 @@ CompilerKit::SyntaxLeafList::SyntaxLeaf CompilerFrontendCxxAMD64::Compile(
 
           if (ref.empty() == false) syntax_tree.fUserValue += "lea rax, " + ref + "\n";
 
-          if (subText.starts_with("'") || isnumber(subText[0]))
+          if (subText.starts_with("'") || isnumber(subText[0])) {
             syntax_tree.fUserValue += "mov rax, " + subText + "\n";
-          else if (text.find("(") != CompilerKit::STLString::npos &&
-                   text.find(");") != CompilerKit::STLString::npos) {
+          } else if (text.find("(") != CompilerKit::STLString::npos &&
+                     text.find(");") != CompilerKit::STLString::npos) {
             // Track as potential external symbol for NASM.
 
             subText.erase(subText.find("("));
 
             for (const auto& keyword2 : kKeywords) {
               if (keyword2.fKeywordName == subText)
-                CompilerKit::Detail::print_error("A nectar keyword cannot be used there.", file);
+                CompilerKit::Detail::print_error("A RISC-C++ keyword cannot be used there.", file);
             }
 
             kExternalSymbols.insert(subText);
@@ -1199,8 +1197,8 @@ static std::vector<CompilerKit::STLString> cxx_extract_function_args(
 }
 
 /// \brief Mangle a function or method name according to C++ mangling scheme
-static CompilerKit::STLString cxx_mangle_name(const CompilerKit::STLString& identifier,
-                                                 const std::vector<CompilerKit::STLString>& args) {
+static CompilerKit::STLString cxx_mangle_name(const CompilerKit::STLString&              identifier,
+                                              const std::vector<CompilerKit::STLString>& args) {
   CompilerKit::STLString mangled{"__NCC_"};
   CompilerKit::STLString prefix{"N_"};
 
@@ -1253,7 +1251,7 @@ static CompilerKit::STLString cxx_generate_epilogue() {
 
 /// \brief Allocate a variable on the stack
 static Int32 cxx_allocate_stack_variable(const CompilerKit::STLString& var_name, Int32 size,
-                                            bool is_constant) {
+                                         bool is_constant) {
   kContext.fStackOffset -= size;
   kContext.fMaxStackUsed = std::min(kContext.fStackOffset, kContext.fMaxStackUsed);
 
@@ -1294,7 +1292,7 @@ static VariableInfo* cxx_find_variable(const CompilerKit::STLString& var_name) {
 
 /// \brief Get variable reference (register or stack location)
 static CompilerKit::STLString cxx_get_variable_ref(const CompilerKit::STLString& var_name,
-                                                      bool                          lookup) {
+                                                   bool                          lookup) {
   auto* varInfo = cxx_find_variable(var_name);
 
   if (!varInfo || var_name.empty() || !isnumber(var_name[0])) {
@@ -1430,7 +1428,7 @@ static CompilerKit::STLString cxx_spill_lru_variable() {
 
 /// \brief Add a class member to the struct map
 static void cxx_add_impl_member(const CompilerKit::STLString& class_name,
-                                   const CompilerKit::STLString& member_name, Int32 size) {
+                                const CompilerKit::STLString& member_name, Int32 size) {
   // Find or create struct map entry
   CompilerStructMap* structMap = nullptr;
   for (auto& sm : kContext.fStructMapVector) {
@@ -1487,8 +1485,8 @@ static CompilerKit::STLString cxx_generate_constructor_call(
 }
 
 /// \brief Generate destructor call
-static CompilerKit::STLString cxx_generate_destructor_call(
-    const CompilerKit::STLString& class_name, const CompilerKit::STLString& obj_name) {
+static CompilerKit::STLString cxx_generate_destructor_call(const CompilerKit::STLString& class_name,
+                                                           const CompilerKit::STLString& obj_name) {
   auto* varInfo = cxx_find_variable(obj_name);
 
   if (!varInfo) {
@@ -1587,7 +1585,7 @@ class AssemblyCxxInterfaceAMD64 final NC_ASSEMBLY_INTERFACE {
     CompilerKit::STLString nextRes;
 
     while (std::getline(src_fp, line_source)) {
-      auto        res = kFrontend->Compile(line_source, src);
+      auto res = kFrontend->Compile(line_source, src);
       if (kAcceptableErrors > 0) return EXIT_FAILURE;
 
       if (res.fPlaceType == CompilerKit::SyntaxLeafList::SyntaxLeaf::kPlaceBefore) {
@@ -1720,8 +1718,7 @@ NCC_MODULE(CompilerCxxAMD64) {
         continue;
       }
 
-      if (strcmp(argv[index], "-fuse-masm") == 0 ||
-          strcmp(argv[index], "-fuse-ant-asm") == 0) {
+      if (strcmp(argv[index], "-fuse-masm") == 0 || strcmp(argv[index], "-fuse-ant-asm") == 0) {
         kNasmOutput = false;
         continue;
       }
