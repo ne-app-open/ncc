@@ -942,7 +942,7 @@ CompilerKit::SyntaxLeafList::SyntaxLeaf CompilerFrontendCxxAMD64::Compile(
 
         if (!kNasmOutput)
           syntax_tree.fUserValue +=
-              "extern_segment .code64 _" +
+              "extern_segment .data64 _" +
               tmp.substr(tmp.find(keyword.first.fKeywordName) + keyword.first.fKeywordName.size()) +
               "\n";
         else
@@ -1347,6 +1347,7 @@ static CompilerKit::STLString cxx_allocate_register(const CompilerKit::STLString
   // Find a free register
   for (const auto& reg : kRegisterList) {
     bool inUse = false;
+
     for (const auto& var : kContext.fVariables) {
       if (var.fLocation == VarLocation::kRegister && var.fRegister == reg) {
         inUse = true;
@@ -1653,7 +1654,6 @@ NCC_MODULE(CompilerCxxAMD64) {
   kKeywords.emplace_back("==", CompilerKit::KeywordKind::kKeywordKindVariableEquals);
   kKeywords.emplace_back("+=", CompilerKit::KeywordKind::kKeywordKindVariableInc);
   kKeywords.emplace_back("-=", CompilerKit::KeywordKind::kKeywordKindVariableDec);
-  kKeywords.emplace_back("const", CompilerKit::KeywordKind::kKeywordKindVariable);
   kKeywords.emplace_back("auto", CompilerKit::KeywordKind::kKeywordKindVariable);
   kKeywords.emplace_back("new", CompilerKit::KeywordKind::kKeywordKindNew);
   kKeywords.emplace_back("delete", CompilerKit::KeywordKind::kKeywordKindDelete);
@@ -1662,10 +1662,6 @@ NCC_MODULE(CompilerCxxAMD64) {
   kKeywords.emplace_back("(", CompilerKit::KeywordKind::kKeywordKindFunctionAccess);
   kKeywords.emplace_back(";", CompilerKit::KeywordKind::kKeywordKindEndLine);
   kKeywords.emplace_back("return", CompilerKit::KeywordKind::kKeywordKindReturn);
-  kKeywords.emplace_back("extern", CompilerKit::KeywordKind::kKeywordKindExtern);
-  kKeywords.emplace_back("import", CompilerKit::KeywordKind::kKeywordKindImport);
-  kKeywords.emplace_back("export", CompilerKit::KeywordKind::kKeywordKindExport);
-
   kKeywords.emplace_back("if", CompilerKit::KeywordKind::kKeywordKindIf);
 
   kErrorLimit = 0;

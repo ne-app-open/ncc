@@ -55,6 +55,8 @@ NC_IMPORT_C bool CxxCheckLine(CompilerKit::STLString& input) {
       if (cxx_has_assignment(input)) {
         Detail::print_error("A declaration must always end with ';'", "check");
         return false;
+      } else {
+        Detail::print_error("A declaration marked export, import, extern is not supported", "check");
       }
     }
   }
