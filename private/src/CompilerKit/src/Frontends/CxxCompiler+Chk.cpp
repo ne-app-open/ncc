@@ -44,7 +44,7 @@ NC_IMPORT_C bool CxxCheckLine(CompilerKit::STLString& input) {
   // Unmatched parentheses.
   if (input.find("(") != CompilerKit::STLString::npos) {
     if (input.find(")") == CompilerKit::STLString::npos) {
-      Detail::print_error("Unmatched '(' — missing closing ')'.", "check");
+      Detail::print_error("Unmatched '(', missing closing ')'.", "check");
       return false;
     }
   }
