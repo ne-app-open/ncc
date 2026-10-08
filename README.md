@@ -1,5 +1,7 @@
 <!-- Read Me of Nectar -->
 
+![private/etc/media/nectar.png](private/etc/media/nectar.png)
+
 # Ne.app Nectar Compiler Collection
 
 ### Notice

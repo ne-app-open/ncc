@@ -12,8 +12,8 @@
 TEST(CodegenTest, BasicCodegenTestGrep) {
   // Compile C++ source to assembly
   auto compile_result =
-      std::system("pef-amd64-necdrv ../../../../snippets/test_snippets/inner.nc > /dev/null 2>&1");
-  EXPECT_TRUE(compile_result == 0) << "C++ compiler driver failed to compile iner.nc";
+      std::system("pef-amd64-cxxdrv ../../../../snippets/test_snippets/inner.cpp > /dev/null 2>&1");
+  EXPECT_TRUE(compile_result == 0) << "C++ compiler driver failed to compile inner.cpp";
 }
 
 TEST(CodegenTest, BasicCodegenTestAssemble) {
