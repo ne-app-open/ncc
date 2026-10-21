@@ -1,6 +1,6 @@
 # Nectar Frontends:
 
-The implemented Nectar frontends are implemented here.
+The RISC-C++/Nectar frontends are implemented here.
 
 ## Current Status:
 
