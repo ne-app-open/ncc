@@ -12,7 +12,7 @@
 #include <CompilerKit/UUID.h>
 #include <CompilerKit/Utils/Compiler.h>
 
-/* C++ Compiler Check Driver. */
+/* RISC-C++ Compiler Check Driver. */
 /* This is part of the CompilerKit. */
 /* (c) Amlal El Mahrouss 2026 */
 
@@ -133,3 +133,5 @@ NC_IMPORT_C bool CxxCheckLine(CompilerKit::STLString& input) {
 
   return true;
 }
+
+// EOF
