@@ -48,3 +48,5 @@ __nrt_pthread_kill_:
     mov rax, rdx
     pop rax
     ret
+
+// EOF
