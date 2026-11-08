@@ -20,7 +20,6 @@
 
 namespace CompilerKit {
 
-inline static constexpr int kBaseYear = 1900;
 using STLString                       = std::string;
 
 #ifdef __NCC_USE_TPROC__
@@ -29,9 +28,13 @@ using RopeString                      = ocl::tproc::crope;
 using RopeString = STLString;
 #endif
 
+inline constexpr Int32 kBaseYear = 1900;
+
 inline STLString current_date() noexcept {
   auto time_data   = time(nullptr);
   auto time_struct = gmtime(&time_data);
+
+  if (!time_struct) return {};
 
   STLString fmt = std::to_string(kBaseYear + time_struct->tm_year);
 
@@ -77,3 +80,5 @@ inline bool install_signal(Int32 signal, void (*handler)(int)) noexcept {
 }  // namespace CompilerKit
 
 #endif  // __COMPILERKIT_CONFIG_H__
+
+// EOF

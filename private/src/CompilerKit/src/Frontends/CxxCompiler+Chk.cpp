@@ -14,7 +14,7 @@
 
 /* RISC-C++ Compiler Check Driver. */
 /* This is part of the CompilerKit. */
-/* (c) Amlal El Mahrouss 2026 */
+/* (c) Amlal El Mahrouss, Ne.app 2026 */
 
 using namespace CompilerKit;
 
