@@ -18,3 +18,9 @@
 #ifdef __x86_64__
 #include "Platform/__x86_64__.s"
 #endif
+
+#ifdef __aarch64__
+#include "Platform/__aarch64__.s"
+#endif
+
+// EOF
